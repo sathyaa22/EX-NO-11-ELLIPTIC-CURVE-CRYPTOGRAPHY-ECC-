@@ -32,11 +32,13 @@ typedef struct
     long long int x, y;
 } Point;
 
-long long int modInverse(long long int a, long long int m) {
+long long int modInverse(long long int a, long long int m)
+{
     long long int m0 = m, t, q;
     long long int x0 = 0, x1 = 1;
     if (m == 1) return 0;
-    while (a > 1) {
+    while (a > 1)
+    {
         q = a / m;
         t = m;
         m = a % m, a = t;
@@ -53,20 +55,18 @@ Point pointAddition(Point P, Point Q, long long int a, long long int p)
     Point R;
     long long int lambda;
     
-    if (P.x == Q.x && P.y == Q.y) {
+    if (P.x == Q.x && P.y == Q.y)
+    {
         lambda = (3 * P.x * P.x + a) * modInverse(2 * P.y, p) % p;
     } 
     else 
     {
         lambda = (Q.y - P.y) * modInverse(Q.x - P.x, p) % p;
     }
-
     R.x = (lambda * lambda - P.x - Q.x) % p;
     R.y = (lambda * (P.x - R.x) - P.y) % p;
-
     R.x = (R.x + p) % p;
     R.y = (R.y + p) % p;
-
     return R;
 }
 
@@ -74,8 +74,8 @@ Point scalarMultiplication(Point P, long long int k, long long int a, long long 
 {
     Point result = P;
     k--; 
-
-    while (k > 0) {
+    while (k > 0)
+    {
         result = pointAddition(result, P, a, p); 
         k--;
     }
